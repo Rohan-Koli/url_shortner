@@ -12,7 +12,7 @@ function App() {
   const [totalURLCount, setTotalURLCouunt] = useState()
   const getData = async () => {
     try {
-      const res = await axios.get(`https://url-shortner-1-cp7p.onrender.com?page=${page}&limit=${limit}`)
+      const res = await axios.get(`https://url-shortner-1-cp7p.onrender.com/api/url?page=${page}&limit=${limit}`)
       if (res.data.status == 1) {
         setTotalPages(res.data.totalPages)
         setUrlsArray(Array.isArray(res.data.data) ? res.data.data : []);
@@ -29,7 +29,7 @@ function App() {
 
   const sendData = async () => {
     try {
-      const res = await axios.post("https://url-shortner-1-cp7p.onrender.com", { inputUrl: inputUrl })
+      const res = await axios.post("https://url-shortner-1-cp7p.onrender.com/api/url", { inputUrl: inputUrl })
       if (res.data.status == 1) {
         // setUrlsArray([...urlsArray,res.data.data])
         getData()
@@ -43,7 +43,7 @@ function App() {
 
   const handleDeleteURL = async (id) => {
     try {
-      const res = await axios.delete(`https://url-shortner-1-cp7p.onrender.com/${id}`)
+      const res = await axios.delete(`https://url-shortner-1-cp7p.onrender.com/api/url/${id}`)
       getData()
     } catch (error) {
       console.error(error.message)
