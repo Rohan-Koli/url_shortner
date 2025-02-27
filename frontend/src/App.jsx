@@ -12,10 +12,10 @@ function App() {
   const [totalURLCount, setTotalURLCouunt] = useState()
   const getData = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}?page=${page}&limit=${limit}`)
+      const res = await axios.get(`https://url-shortner-1-cp7p.onrender.com?page=${page}&limit=${limit}`)
       if (res.data.status == 1) {
         setTotalPages(res.data.totalPages)
-        setUrlsArray(res.data.data)
+        setUrlsArray(Array.isArray(res.data.data) ? res.data.data : []);
       } else {
         setError(error.push(res.data.error))
       }
@@ -29,7 +29,7 @@ function App() {
 
   const sendData = async () => {
     try {
-      const res = await axios.post(import.meta.env.VITE_API_URL, { inputUrl: inputUrl })
+      const res = await axios.post("https://url-shortner-1-cp7p.onrender.com", { inputUrl: inputUrl })
       if (res.data.status == 1) {
         // setUrlsArray([...urlsArray,res.data.data])
         getData()
@@ -43,7 +43,7 @@ function App() {
 
   const handleDeleteURL = async (id) => {
     try {
-      const res = await axios.delete(`${import.meta.env.VITE_API_URL}/${id}`)
+      const res = await axios.delete(`https://url-shortner-1-cp7p.onrender.com/${id}`)
       getData()
     } catch (error) {
       console.error(error.message)
@@ -65,7 +65,7 @@ function App() {
         {/* Error Messages */}
         {error.length !== 0 && (
           <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
-            {error.map((err, index) => (
+            {Array.isArray(error) && error.map((err, index) => (
               <h5 key={index}>{err}</h5>
             ))}
           </div>
@@ -95,7 +95,7 @@ function App() {
         {/* Display URLs */}
         {urlsArray.length !== 0 ? (
           <ul className="mt-6 w-full space-y-3">
-            {urlsArray.map((url) => (
+            {Array.isArray(urlsArray) && urlsArray.map((url) => (
               <div key={url._id} className='flex w-full flex-wrap items-center justify-between flex-row'>
               <li
                 className="bg-gray-100 p-3 w-5/6 rounded-lg flex justify-between items-center"

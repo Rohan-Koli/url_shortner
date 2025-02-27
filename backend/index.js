@@ -6,7 +6,7 @@ const cors = require("cors")
 const path = require("path")
 const app = express()
 const corsOptions = {
-    origin :"http://localhost:5173"
+    origin :"https://url-shortner-1-cp7p.onrender.com"
 }
 app.use(cors(corsOptions))
 dotenv.config()
